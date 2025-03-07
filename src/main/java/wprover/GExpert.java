@@ -3433,6 +3433,36 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
     public void initKeyMap() {
         KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
         manager.addKeyEventPostProcessor(new KeyProcessor());
+
+        // Bindings for tools
+        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, 0), "SelectPointTool", "point", "Point");
+        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, 0), "SelectLineTool", "line", "Line");
+        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, 0), "SelectCircleTool", "circle", "Circle");
+        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, 0), "SelectPerpendicularTool", "perpendicular", "Perpendicular");
+        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, 0), "SelectParallelTool", "parallel", "Parallel");
+        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, 0), "SelectAngleTool", "angle", "Angle");
+        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, 0), "SelectMoveTool", "move", "Move");
+        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, 0), "SelectIntersectTool", "intersect", "Intersect");
+        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_BACK_SPACE, 0), "UndoTool", "undo", "Undo");
+        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, 0), "SelectTranslateTool", "translate", "Translate");
+    }
+
+    // Helper method to register a key binding.
+    private void bindKey(KeyStroke keyStroke, String actionName, final String command, final String groupName) {
+        javax.swing.JRootPane root = this.getRootPane();
+        root.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, actionName);
+        root.getActionMap().put(actionName, new javax.swing.AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                // Trigger the action corresponding to the tool.
+                sendAction(command, GExpert.this);
+                // Select the corresponding tool button if it exists.
+                javax.swing.AbstractButton btn = group.getButton(groupName);
+                if (btn != null) {
+                    btn.setSelected(true);
+                }
+            }
+        });
     }
 
     public static long HotKeyTimer = 0;
