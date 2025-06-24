@@ -9,16 +9,12 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 /**
- * Created by IntelliJ IDEA.
- * User: yezheng
- * Date: 2006-8-19
- * Time: 11:35:20
- * To change this template use File | Settings | File Templates.
+ * The `AboutDialog` class represents a custom popup dialog that displays information about the application.
+ * It extends `JPopupMenu` and implements `MouseListener` to handle mouse events.
+ * The dialog includes labels, panels, and a text pane with information about the application and its authors.
  */
 public class AboutDialog extends JPopupMenu implements MouseListener {
-
     JLabel b2;
     Color color = new Color(206, 223, 242);
     GExpert gx;
@@ -34,7 +30,10 @@ public class AboutDialog extends JPopupMenu implements MouseListener {
     public AboutDialog(GExpert f) {
         gx = f;
 
-        this.setBorder(BorderFactory.createCompoundBorder(new DropShadowBorder(), BorderFactory.createLineBorder(color, 4)));
+        if (!GExpert.isRunningInCheerpJ()) {
+            // FIXME: This does not work properly in CheerpJ.
+            this.setBorder(BorderFactory.createCompoundBorder(new DropShadowBorder(), BorderFactory.createLineBorder(color, 4)));
+        }
         JPanel panel = new JPanel();
         panel.setBackground(color);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
