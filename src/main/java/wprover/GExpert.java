@@ -4265,8 +4265,9 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
         bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, 0), "SelectPointTool", "point", "Point");
         bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, 0), "SelectLineTool", "line", "Line");
         bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, 0), "SelectCircleTool", "circle", "Circle");
-        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, 0), "SelectPerpendicularTool", "perpendicular", "Perpendicular");
-        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, 0), "SelectParallelTool", "parallel", "Parallel");
+        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, 0), "SelectMidpointTool", "midpoint", "Midpoint");
+        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, 0), "SelectPerpendicularTool", "perpendicular", "Perpendicular");
+        bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, 0), "SelectParallelTool", "parallel", "Parallel");
         bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, 0), "SelectAngleTool", "angle", "Angle");
         bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, 0), "SelectMoveTool", "move", "Move");
         bindKey(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, 0), "SelectIntersectTool", "intersect", "Intersect");

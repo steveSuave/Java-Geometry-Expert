@@ -685,7 +685,7 @@ public class CAngle extends CClass {
             Composite ac = g2.getComposite();
             g2.setComposite(CMisc.getFillComposite());
 
-            g2.setColor(DrawData.getColor(value1));
+            g2.setColor(DrawData.getColor(value1)); // 6
             g2.fillArc(x, y, w, w, (int) ri1, (int) dr);
             g2.setComposite(ac);
             g2.setColor(super.getColor());
