@@ -22,11 +22,11 @@ public class DrawData {
     public static int windex = 2;
 
     final public static int pointcolor = 3;
-    final public static int pointcolor_half_decided = 5;
+    final public static int pointcolor_half_decided = 4;
     final public static int pointcolor_decided = 14;
 
     public static int polygoncolor = 17;
-    public static int anglecolor = 3;
+    public static int anglecolor = 16;
     public static int anglewidth = 2;
     public static int angledash = 0;
     public static int tractcolor = 3;
@@ -164,7 +164,7 @@ public class DrawData {
      * @return the calculated Color object
      */
     public static Color getColorSinceRed(int n) {
-        return getColor(anglecolor + n);
+        return getColor(3 + n);
     }
 
     /**
