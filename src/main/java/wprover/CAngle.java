@@ -151,7 +151,7 @@ public class CAngle extends CClass {
         ptext.setFont(CMisc.angleNameFont);
         ptext.setText1(m_name);
         ftype = CMisc.ANGLE_TYPE;
-        value1 = 1;
+        value1 = 6;
     }
 
     /**
@@ -269,7 +269,7 @@ public class CAngle extends CClass {
         ptext.setFont(CMisc.angleNameFont);
         ptext.setText1(m_name);
         ftype = CMisc.ANGLE_TYPE;
-        value1 = 1;
+        value1 = 6;
     }
 
     /**
