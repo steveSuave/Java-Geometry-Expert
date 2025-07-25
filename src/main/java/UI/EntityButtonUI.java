@@ -3,6 +3,7 @@ package UI;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
+import wprover.ThemeManager;
 
 /**
  * EntityButtonUI is a custom button UI that provides a specific look and feel for buttons.
@@ -11,11 +12,7 @@ import java.awt.*;
  */
 public class EntityButtonUI extends BasicButtonUI {
 
-    private static Color BackgroundOver = new Color(224, 232, 246);
-    private static Color BorderOver = new Color(152, 180, 226);
-
-    private static Color BackgroundSelected = new Color(193, 210, 238);
-    private static Color BorderSelected = new Color(49, 106, 197);
+    // Colors are now dynamically retrieved from ThemeManager
 //    private static DropShadowBorder dsp= new DropShadowBorder();
 
     private int type = 0; // 0. all, 1. left, 2. right, 3. top, 4, bottom.
@@ -82,16 +79,16 @@ public class EntityButtonUI extends BasicButtonUI {
 
             Color oldColor = g.getColor();
             if (b3)
-                g.setColor(BackgroundSelected);
+                g.setColor(ThemeManager.getButtonSelectedColor());
             else
-                g.setColor(BackgroundOver);
+                g.setColor(ThemeManager.getButtonHoverColor());
 
             g.fillRect(0, 0, w - 1, h - 1);
 
             if (b3)
-                g.setColor(BorderSelected);
+                g.setColor(ThemeManager.getBorderSelectedColor());
             else
-                g.setColor(BorderOver);
+                g.setColor(ThemeManager.getBorderHoverColor());
 
             if (type == 0)
                 g.drawRect(0, 0, w - 1, h - 1);

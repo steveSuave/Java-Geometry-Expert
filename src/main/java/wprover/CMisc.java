@@ -159,7 +159,7 @@ public class CMisc {
     }
 
     public static Color getGridColor() {
-        return GridColor;
+        return ThemeManager.getGridColor();
     }
 
     public static void setGridColor(Color c) {
@@ -167,7 +167,7 @@ public class CMisc {
     }
 
     public static Color getBackGroundColor() {
-        return BackGroundColor;
+        return ThemeManager.getDrawingBackgroundColor();
     }
 
     public static int getMoveStep() {
