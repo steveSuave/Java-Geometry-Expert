@@ -590,7 +590,7 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
     public JFileChooser getFileChooser(boolean importGgb) {
         if (filechooser == null) {
             filechooser = new JFileChooser();
-            String dr = getUserDir();
+            String dr = getUserHome();
             filechooser.setCurrentDirectory(new File(dr));
         }
         if (importGgb) {
@@ -1720,7 +1720,7 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
                         return "PostScript (*.ps)";
                     }
                 });
-                String dr = getUserDir();
+                String dr = getUserHome();
                 chooser.setCurrentDirectory(new File(dr));
 
                 int result = chooser.showSaveDialog(this);
@@ -1789,7 +1789,7 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
             GTerm gt = pprove.getConstructionTerm();
             if (gt != null) {
                 JFileChooser filechooser1 = new JFileChooser();
-                String dr = getUserDir();
+                String dr = getUserHome();
                 filechooser1.setCurrentDirectory(new File(dr));
 
                 int result = filechooser1.showDialog(this, getLanguage("Save"));
@@ -2227,14 +2227,14 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
             JFileChooser chooser = new JFileChooser();
             chooser.setFileFilter(new JFileFilter("gv"));
 
-            String dr1 = getUserDir();
+            String dr1 = getUserHome();
             chooser.setCurrentDirectory(new File(dr1));
 
             int result = chooser.showSaveDialog(this);
             if (result == JFileChooser.CANCEL_OPTION) {
                 return;
             }
-            String dr = getUserDir();
+            String dr = getUserHome();
             chooser.setCurrentDirectory(new File(dr));
 
             ff = chooser.getSelectedFile();
@@ -2572,14 +2572,14 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(new JFileFilter("GIF"));
 
-        String dr1 = getUserDir();
+        String dr1 = getUserHome();
         chooser.setCurrentDirectory(new File(dr1));
 
         int result = chooser.showSaveDialog(this);
         if (result == JFileChooser.CANCEL_OPTION) {
             return;
         }
-        String dr = getUserDir();
+        String dr = getUserHome();
         chooser.setCurrentDirectory(new File(dr));
 
         File ff = chooser.getSelectedFile();
@@ -2647,7 +2647,7 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
 
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(new JFileFilter("GIF"));
-        String dr = getUserDir();
+        String dr = getUserHome();
         chooser.setCurrentDirectory(new File(dr));
 
         int result = chooser.showSaveDialog(this);
@@ -2750,7 +2750,7 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
             }
             chooser.setFileFilter(selected);
         }
-        String dr = getUserDir();
+        String dr = getUserHome();
         chooser.setCurrentDirectory(new File(dr));
 
         int result = chooser.showSaveDialog(this);
@@ -3994,7 +3994,7 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
                 return "Adobe PDF File (*.pdf)";
             }
         });
-        String dr = getUserDir();
+        String dr = getUserHome();
         chooser.setCurrentDirectory(new File(dr));
         int n = chooser.showOpenDialog(this);
         if (n != JFileChooser.OPEN_DIALOG)
