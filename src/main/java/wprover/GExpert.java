@@ -159,6 +159,9 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
         addWindowListener(this);
 
         this.getContentPane().add(contentPane, BorderLayout.CENTER);
+        
+        // Apply initial theme
+        applyThemeToApplication();
     }
 
     /**
@@ -728,6 +731,60 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
             styleDialog.repaint();
         } else {
             styleDialog.setVisible(false);
+        }
+    }
+
+    /**
+     * Toggles between light and dark themes and applies the theme to all UI components.
+     */
+    public void toggleDarkMode() {
+        ThemeManager.toggleTheme();
+        DrawData.refreshColorsForThemeChange();
+        applyThemeToApplication();
+    }
+
+    /**
+     * Applies the current theme to all application components.
+     */
+    private void applyThemeToApplication() {
+        // Apply theme to main frame
+        ThemeManager.applyTheme(this);
+        
+        // Apply theme to content pane
+        if (contentPane != null) {
+            ThemeManager.applyTheme(contentPane);
+        }
+        
+        // Apply theme to drawing panel
+        if (d != null) {
+            ThemeManager.applyTheme(d);
+        }
+        
+        // Apply theme to scroll pane
+        if (scroll != null) {
+            ThemeManager.applyTheme(scroll);
+        }
+        
+        // Apply theme to prove panel
+        if (pprove != null) {
+            ThemeManager.applyTheme(pprove);
+        }
+        
+        // Apply theme to all dialogs
+        if (styleDialog != null && styleDialog.isVisible()) {
+            ThemeManager.applyTheme(styleDialog);
+        }
+        if (adialog != null && adialog.isVisible()) {
+            ThemeManager.applyTheme(adialog);
+        }
+        if (propt != null && propt.isVisible()) {
+            ThemeManager.applyTheme(propt);
+        }
+        
+        // Refresh the display
+        this.repaint();
+        if (d != null) {
+            d.repaint();
         }
     }
 
@@ -1373,6 +1430,9 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
         addImageToItem(item, "step");
         item = addAMenu(menu, "Style Dialog", "Show Draw Style Dialog", this);
         addImageToItem(item);
+        
+        item = addAMenu(menu, "Toggle Dark Mode", "Switch between light and dark themes", this);
+        addImageToItem(item);
 
         menu = new JMenu(getLanguage("Help"));
         item = addAMenu(menu, "Help", "Help", KeyEvent.VK_F1, this);
@@ -1902,6 +1962,8 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
             this.showProveBar(true);
         } else if (command.equals("Style Dialog")) {
             this.showStyleDialog();
+        } else if (command.equals("Toggle Dark Mode")) {
+            this.toggleDarkMode();
         } else if (command.equals("About JGEX")) {
             if (adialog == null)
                 adialog = new AboutDialog(this);
