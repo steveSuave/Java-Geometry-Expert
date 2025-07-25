@@ -130,7 +130,7 @@ public class CMisc {
     final public static int POLYGON_ANIMATION_LAG = 3;
 
 
-    public static int ANGLE_TYPE = 1; // 0: traditional ;  1: Full angle, 2: Multiple arc, 3. Fill.
+    public static int ANGLE_TYPE = 3; // 0: traditional ;  1: Full angle, 2: Multiple arc, 3. Fill.
     public static int show_angle_type = 2;    // 0: no , 1: name 2: value;
     public static boolean show_angle_text = false;
     public static boolean SMART_HV_LINE_CATCH = false;
@@ -282,7 +282,7 @@ public class CMisc {
         screeny = 750;
         lan = "English";
         full_screen = false;
-        ANGLE_TYPE = 1;
+        ANGLE_TYPE = 3;
         AntiAlias = true;
         lookAndFeel = "Default";
         BackGroundColor = Color.white;
