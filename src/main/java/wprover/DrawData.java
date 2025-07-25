@@ -45,31 +45,29 @@ public class DrawData {
      */
     private DrawData() {
         Color[] color = {
-            Color.blue,
-            new Color(0, 255, 255),
-
-            new Color(128, 0, 0),
-            Color.red,
-
-            new Color(0, 128, 0),
-            Color.green,
-            new Color(0, 128, 192),
-            new Color(128, 128, 255),
-            new Color(255, 0, 255),
-            new Color(255, 128, 0),
-            new Color(128, 128, 0),
-            new Color(255, 255, 0),
-            Color.orange,
-            Color.white,
-            Color.lightGray,
-            Color.gray,
-            Color.black,
-            new Color(204, 255, 204),
-            new Color(255, 204, 204),
-            new Color(204, 204, 255),
-            new Color(204, 255, 255),
-            new Color(255, 204, 255),
-            new Color(255, 255, 204)
+            Color.blue, // 0
+            new Color(0, 255, 255), // 1
+            new Color(128, 0, 0), // 2
+            Color.red, // 3
+            new Color(0, 128, 0), // 4
+            Color.green, // 5
+            new Color(0, 128, 192), // 6
+            new Color(128, 128, 255), // 7
+            new Color(255, 0, 255), // 8
+            new Color(255, 128, 0), // 9
+            new Color(128, 128, 0), // 10
+            new Color(255, 255, 0), // 11
+            Color.orange, // 12
+            Color.white, // 13
+            Color.lightGray, // 14
+            Color.gray, // 15
+            Color.black, // 16
+            new Color(204, 255, 204), // 17
+            new Color(255, 204, 204), // 18
+            new Color(204, 204, 255), // 19
+            new Color(204, 255, 255), // 20
+            new Color(255, 204, 255), // 21
+            new Color(255, 255, 204) // 22
         };
 
         default_color_num = color.length;
