@@ -132,7 +132,7 @@ public class CMisc {
 
     public static int ANGLE_TYPE = 3; // 0: traditional ;  1: Full angle, 2: Multiple arc, 3. Fill.
     public static int show_angle_type = 2;    // 0: no , 1: name 2: value;
-    public static boolean show_angle_text = false;
+    public static boolean show_angle_text = true;
     public static boolean SMART_HV_LINE_CATCH = false;
     public static boolean DRAW_CATCH_OBJECT_NAME = false;
 
