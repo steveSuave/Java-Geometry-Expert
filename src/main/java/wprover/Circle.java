@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.FileOutputStream;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 
 /**
  * Represents a geometric circle with various properties and methods.
@@ -72,7 +73,7 @@ public class Circle extends CClass {
         y1 = o.y1.value;
         r = getRadius();
         if (r < CMisc.MAX_DRAW_LEN)
-            g2.drawOval((int) (x1 - r), (int) (y1 - r), 2 * (int) r, 2 * (int) r);
+            g2.draw(new Ellipse2D.Double(x1 - r, y1 - r, 2 * r, 2 * r));
         else {
             if (points.size() < 2) return;
             CPoint p1, p2;
