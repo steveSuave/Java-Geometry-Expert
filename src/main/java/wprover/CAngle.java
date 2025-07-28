@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.FileOutputStream;
+import java.awt.geom.Arc2D;
 
 import gprover.Cm;
 
@@ -624,10 +625,14 @@ public class CAngle extends CClass {
         dx = cx;
         dy = cy;
 
+        double arcX = r[0] - radius;
+        double arcY = r[1] - radius;
+        double arcW = radius * 2;
+        double arcH = radius * 2;
 
         if (isSelected) {
             setDrawSelect(g2);
-            g2.drawArc((int) r[0] - radius, (int) r[1] - radius, radius * 2, radius * 2, (int) ri1, (int) dr);
+            g2.draw(new Arc2D.Double(arcX, arcY, arcW, arcH, ri1, dr, Arc2D.OPEN));
             return;
         } else
             super.setDraw(g2);
@@ -672,25 +677,21 @@ public class CAngle extends CClass {
             g2.fillPolygon(xp, yp, 4);
         }
 
-        int x = (int) r[0] - radius;
-        int y = (int) r[1] - radius;
-        int w = radius * 2;
-
 
         if (ftype == 2) {
             for (int i = 1; i < value1; i++) {
-                g2.drawArc(x + i * 4, y + i * 4, w - i * 8, w - i * 8, (int) ri1, (int) dr);
+                g2.draw(new Arc2D.Double(arcX + i * 4, arcY + i * 4, arcW - i * 8, arcW - i * 8, ri1, dr, Arc2D.OPEN));
             }
         } else if (ftype == 3) {
             Composite ac = g2.getComposite();
             g2.setComposite(CMisc.getFillComposite());
 
             g2.setColor(DrawData.getColor(value1)); // 6
-            g2.fillArc(x, y, w, w, (int) ri1, (int) dr);
+            g2.fill(new Arc2D.Double(arcX, arcY, arcW, arcH, ri1, dr, Arc2D.PIE));
             g2.setComposite(ac);
             g2.setColor(super.getColor());
         }
-        g2.drawArc(x, y, w, w, (int) ri1, (int) dr);
+        g2.draw(new Arc2D.Double(arcX, arcY, arcW, arcH, ri1, dr, Arc2D.OPEN));
 
 
         if (CMisc.show_angle_text) {
