@@ -2,12 +2,14 @@ package wprover;
 
 import maths.Param;
 
-import java.util.Vector;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.FileOutputStream;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * CPoint class represents a point in a 2D space with x and y coordinates.
@@ -17,7 +19,7 @@ import java.awt.*;
 public class CPoint extends CClass {
     private int type = 0;
     public Param x1, y1;
-    private Vector cons = new Vector();
+    private final List<Constraint> cons = new ArrayList<>();
     boolean hasSetColor = false;
     int m_radius = -1; //default.
     private boolean freezed = false;
@@ -39,8 +41,8 @@ public class CPoint extends CClass {
       * @return the first Constraint object, or null if no constraints are present
       */
     public Constraint getConstraint() {
-        if (cons.size() == 0) return null;
-        return (Constraint) cons.get(0);
+        if (cons.isEmpty()) return null;
+        return cons.getFirst();
     }
 
      /**
@@ -90,32 +92,42 @@ public class CPoint extends CClass {
       * @return the CText object associated with this point
       */
     public CText getPText() {
-        if (ptext == null) {
-            return new CText(this, 7, -24, CText.NAME_TEXT);
-        } else {
-            return ptext;
-        }
+        return Objects.requireNonNullElseGet(ptext, () -> new CText(this, 7, -24, CText.NAME_TEXT));
     }
 
-     /**
-      * Checks if this point is equal to another object based on the name.
-      *
-      * @param obj the object to compare with
-      * @return true if the names are equal, false otherwise
-      */
+    /**
+     * Checks if this point is equal to another object based on the name.
+     *
+     * @param obj the object to compare with
+     * @return true if the names are equal, false otherwise
+     */
+    @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        CPoint other = (CPoint) obj;
+
+        // Compare by name if available
+        if (m_name != null && !m_name.isEmpty() && other.m_name != null && !other.m_name.isEmpty()) {
+            return m_name.equals(other.m_name);
         }
-        if (m_name == null || m_name.length() == 0) {
-            return false;
-        }
-        return m_name.equals(obj.toString());
+
+        // Otherwise compare by coordinates
+        return Double.compare(getx(), other.getx()) == 0 && Double.compare(gety(), other.gety()) == 0;
     }
 
-     /**
-      * Stops the flashing effect for this point and its associated text.
-      */
+    @Override
+    public int hashCode() {
+        if (m_name != null && !m_name.isEmpty()) {
+            return m_name.hashCode();
+        }
+        return Objects.hash(getx(), gety());
+    }
+
+    /**
+     * Stops the flashing effect for this point and its associated text.
+     */
     public void stopFlash() {
         super.stopFlash();
         if (ptext != null)
@@ -130,11 +142,7 @@ public class CPoint extends CClass {
     public void setInFlashing(boolean flash) {
         super.setInFlashing(flash);
         if (ptext != null) {
-            if (flash) {
-                ptext.setInFlashing(true);
-            } else {
-                ptext.setInFlashing(false);
-            }
+            ptext.setInFlashing(flash);
         }
     }
 
@@ -174,15 +182,12 @@ public class CPoint extends CClass {
      * @return true if the point is selected, false otherwise
      */
     public boolean select(double x, double y) {
-        if (visible == false) {
+        if (!visible) {
             return false;
         }
 
         double dis = (Math.pow((getx() - x), 2) + Math.pow((gety() - y), 2));
-        if (dis < CMisc.PIXEPS_PT * CMisc.PIXEPS_PT) {
-            return true;
-        }
-        return false;
+        return dis < CMisc.PIXEPS_PT * CMisc.PIXEPS_PT;
     }
 
     /**
@@ -385,9 +390,8 @@ public class CPoint extends CClass {
      * @return true if the coordinates are valid, false otherwise
      */
     public boolean check_xy_valid(double x, double y) {
-        for (int i = 0; i < cons.size(); i++) {
-            Constraint cs = (Constraint) cons.get(i);
-            if (!cs.check_constraint(x, y))
+        for (Constraint con : cons) {
+            if (!con.check_constraint(x, y))
                 return false;
         }
         return true;
@@ -400,11 +404,7 @@ public class CPoint extends CClass {
      * @return true if the points have the same coordinates, false otherwise
      */
     public boolean isEqual(CPoint p) {
-        if ((p.x1 == this.x1) && (p.y1 == this.y1)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (p.x1 == this.x1) && (p.y1 == this.y1);
     }
 
     /**
@@ -415,11 +415,7 @@ public class CPoint extends CClass {
      * @return true if the indices match this point's indices, false otherwise
      */
     public boolean isEqual(int x, int y) {
-        if ((x == this.x1.xindex) && (y == this.y1.xindex)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (x == this.x1.xindex) && (y == this.y1.xindex);
     }
 
     /**
@@ -430,11 +426,8 @@ public class CPoint extends CClass {
      * @return true if the location matches this point's location, false otherwise
      */
     public boolean isSame_Location(double x, double y) {
-        if (Math.abs(x - this.getx()) < CMisc.ZERO &&
-                Math.abs(y - this.gety()) < CMisc.ZERO) {
-            return true;
-        }
-        return false;
+        return Math.abs(x - this.getx()) < CMisc.ZERO &&
+                Math.abs(y - this.gety()) < CMisc.ZERO;
     }
 
     /**
@@ -506,10 +499,8 @@ public class CPoint extends CClass {
      * @param y the new y-coordinate
      */
     public void setXY(double x, double y) {
-        if (true) {
-            x1.value = x;
-            y1.value = y;
-        }
+        x1.value = x;
+        y1.value = y;
     }
 
     /**
@@ -539,7 +530,7 @@ public class CPoint extends CClass {
     public void SavePS_Define_Point(FileOutputStream fp) throws IOException {
         String st = m_name;
 
-        if (st.length() == 0 || st.trim().length() == 0)
+        if (st.isEmpty() || st.trim().isEmpty())
             st = "POINT" + m_id;
 
         String s = '/' + st + " {";
@@ -562,7 +553,7 @@ public class CPoint extends CClass {
      * @throws IOException if an I/O error occurs
      */
     public void SavePS(FileOutputStream fp, int stype) throws IOException {
-        if (visible == false) {
+        if (!visible) {
             return;
         }
 
@@ -573,7 +564,7 @@ public class CPoint extends CClass {
 
         String st = m_name;
 
-        if (st.length() == 0 || st.trim().length() == 0)
+        if (st.isEmpty() || st.trim().isEmpty())
             st = "POINT" + m_id;
 
         s = st + " " + n + " cirfill fill " + st + " " + n + " cir black" + " stroke \n";
@@ -587,7 +578,7 @@ public class CPoint extends CClass {
      * @throws IOException if an I/O error occurs
      */
     public void SavePsOringinal(FileOutputStream fp) throws IOException {
-        if (visible == false) {
+        if (!visible) {
             return;
         }
 
@@ -596,7 +587,7 @@ public class CPoint extends CClass {
 
         String st = m_name;
 
-        if (st.length() == 0 || st.trim().length() == 0)
+        if (st.isEmpty() || st.trim().isEmpty())
             st = "POINT" + m_id;
 
         s = st + " " + n + " cirfill ";
@@ -621,7 +612,7 @@ public class CPoint extends CClass {
         int size = cons.size();
         out.writeInt(size);
         for (int i = 0; i < size; i++) {
-            Constraint cs = (Constraint) cons.get(i);
+            Constraint cs = cons.get(i);
             if (cs != null)
                 out.writeInt(cs.id);
             else out.writeInt(-1);
@@ -653,10 +644,11 @@ public class CPoint extends CClass {
             }
 
             int len = in.readInt();
-            m_name = new String();
+            StringBuilder builder = new StringBuilder(len);
             for (int i = 0; i < len; i++) {
-                m_name += in.readChar();
+                builder.append(in.readChar());
             }
+            m_name = builder.toString();
             type = in.readInt();
 
             int ix = in.readInt();
