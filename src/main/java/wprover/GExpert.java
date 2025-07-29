@@ -2725,12 +2725,12 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
             rect = rchoose.getSelectedRectangle();
         } else
             return;
+        boolean useTransparency = rchoose.isTransparent();
 
         JFileChooser chooser = new JFileChooser();
         String[] s = ImageIO.getWriterFormatNames();
         String[] s1 = new String[s.length + 1];
-        for (int i = 0; i < s.length; i++)
-            s1[i] = s[i];
+        System.arraycopy(s, 0, s1, 0, s.length);
         s1[s.length] = "gif";
         s = s1;
 
@@ -2778,7 +2778,13 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
                 e.start(out);
                 e.setRepeat(0);
                 e.setDelay(0);
-                e.addFrame(this.getBufferedImage(rect));
+
+                BufferedImage image = createImageFromComponent(rect, useTransparency);
+                if(useTransparency) {
+                    e.setTransparent(new Color(0, 0, 0, 0));
+                }
+                e.addFrame(image);
+
                 e.finish();
                 out.close();
             } catch (IOException ee) {
@@ -2787,13 +2793,16 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
                 else JOptionPane.showMessageDialog(this, ee.getMessage(), "Information", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            BufferedImage image = getBufferedImage(rect);
+            if (useTransparency && (endfix.equalsIgnoreCase("jpg") || endfix.equalsIgnoreCase("jpeg"))) {
+                useTransparency = false;
+            }
+
+            BufferedImage image = createImageFromComponent(rect, useTransparency);
             Iterator iter = ImageIO.getImageWritersByFormatName(endfix);
             ImageWriter writer = (ImageWriter) iter.next();
             try {
                 ImageOutputStream imageOut = ImageIO.createImageOutputStream(ff);
                 writer.setOutput(imageOut);
-
                 writer.write(new IIOImage(image, null, null));
                 IIOImage iioImage = new IIOImage(image, null, null);
                 if (writer.canInsertImage(0))
@@ -2806,7 +2815,32 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
                     JOptionPane.showMessageDialog(this, exception.getMessage(), "Information", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
 
+    private BufferedImage createImageFromComponent(Rectangle rect, boolean useTransparency) {
+        BufferedImage image;
+        if (useTransparency) {
+            image = new BufferedImage((int) rect.getWidth(), (int) rect.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        } else {
+            image = new BufferedImage((int) rect.getWidth(), (int) rect.getHeight(), BufferedImage.TYPE_INT_RGB);
+        }
+        Graphics2D g2 = image.createGraphics();
+        if (useTransparency) {
+            g2.setComposite(AlphaComposite.Src);
+            g2.setColor(new Color(0, 0, 0, 0));
+            g2.fillRect(0, 0, image.getWidth(), image.getHeight());
+        } else {
+            g2.setColor(Color.white);
+            g2.fillRect(0, 0, image.getWidth(), image.getHeight());
+        }
+        g2.setComposite(AlphaComposite.SrcOver);
+        g2.translate(-rect.getX(), -rect.getY());
+        boolean wasOpaque = d.isOpaque();
+        d.setOpaque(!useTransparency);
+        d.paintComponent(g2);
+        d.setOpaque(wasOpaque);
+        g2.dispose();
+        return image;
     }
 
     /**

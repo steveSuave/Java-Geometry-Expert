@@ -28,6 +28,7 @@ public class RectChooser extends JBaseDialog implements MouseListener, MouseMoti
     private TextField field1, field2, field3, field4, fieldw, fieldh;
     private JButton bok, bcancel;
     private boolean result = false;
+    private boolean transparent = false;
 
     /**
      * Constructs a new RectChooser dialog with the specified GExpert instance.
@@ -83,6 +84,13 @@ public class RectChooser extends JBaseDialog implements MouseListener, MouseMoti
         fieldh = new TextField();
         fieldh.setEditable(false);
         bpane.add(fieldh);
+
+        // Add transparent background checkbox
+        JCheckBox chkTransparent = new JCheckBox(gx.getLanguage("Transparent"), true);
+        chkTransparent.addActionListener(e -> transparent = chkTransparent.isSelected());
+        bpane.add(chkTransparent);
+        transparent = true;
+
         bpane.add(Box.createHorizontalGlue());
         bok = new JButton(gx.getLanguage("OK"));
         bcancel = new JButton(gx.getLanguage("Cancel"));
@@ -151,6 +159,11 @@ public class RectChooser extends JBaseDialog implements MouseListener, MouseMoti
      */
     public Rectangle getSelectedRectangle() {
         return rc;
+    }
+
+
+    public boolean isTransparent() {
+        return transparent;
     }
 
     /**
