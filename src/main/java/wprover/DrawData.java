@@ -25,7 +25,7 @@ public class DrawData {
     final public static int pointcolor_half_decided = 4;
     final public static int pointcolor_decided = 14;
 
-    public static int polygoncolor = 17;
+    public static int polygoncolor = 12;
     public static int anglecolor = 16;
     public static int anglewidth = 2;
     public static int angledash = 0;
