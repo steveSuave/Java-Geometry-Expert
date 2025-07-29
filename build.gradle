@@ -114,6 +114,20 @@ tasks.register("msgMergeAll") {
     dependsOn list
 }
 
+// Replace the previous JavaExec configuration with this:
+tasks.withType(JavaExec) {
+    dependsOn 'msgFmtAll'  // This is stronger than mustRunAfter
+}
+
+// Add this to ensure all Java compilation includes the message format tasks
+tasks.named('compileJava') {
+    finalizedBy('msgFmtAll')
+}
+
+// Make sure the main class execution depends on message format tasks
+tasks.named('run') {
+    dependsOn 'msgFmtAll'
+}
 
 distributions {
     main {

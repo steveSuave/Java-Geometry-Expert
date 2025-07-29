@@ -6163,6 +6163,9 @@ public class DrawProcess extends DrawBase implements Printable, ActionListener {
                 handleLocusCase(x,y);
                 break;
             case CIRCUMCENTER:
+            case BARYCENTER:
+            case ORTHOCENTER:
+            case INCENTER:
                 handleCircumCenter(x,y,p);
                 break;
             case NTANGLE:

@@ -179,6 +179,7 @@ public class TextFrame extends JBaseDialog implements ItemListener,
             this.setAlwaysOnTop(true);
         textpane = new JEditorPane();
         this.init();
+        setupEnterKeyAction();
         this.getContentPane().add(new JScrollPane(textpane));
         text = null;
         //       setCurrentFont(gxInstance.getDefaultFont());
@@ -270,6 +271,20 @@ public class TextFrame extends JBaseDialog implements ItemListener,
                 text.m_color = (id);
         }
 
+    }
+
+    private void setupEnterKeyAction() {
+        textpane.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER && e.isAltDown()) {
+                    // Simulate clicking the OK button
+                    ActionEvent newEvent = new ActionEvent(bok, ActionEvent.ACTION_PERFORMED, "OK");
+                    actionPerformed(newEvent);
+                    e.consume();
+                }
+            }
+        });
     }
 
     public void focusGained(FocusEvent e) {
