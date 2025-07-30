@@ -2,6 +2,7 @@ package wprover;
 
 import maths.Param;
 
+import java.awt.geom.Ellipse2D;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.DataInputStream;
@@ -199,9 +200,9 @@ public class CPoint extends CClass {
     public void draw(Graphics2D g2, boolean selected) {
         int radius = getRadius();
         setDrawSelect(g2);
-        int x = (int) getx();
-        int y = (int) gety();
-        g2.drawOval(x - radius, y - radius, 2 * radius, 2 * radius);
+        double x = getx();
+        double y = gety();
+        g2.draw(new Ellipse2D.Double(x - radius, y - radius, 2 * radius, 2 * radius));
     }
 
     public int POINT_RADIUS = CMisc.getPointRadius();
@@ -244,51 +245,41 @@ public class CPoint extends CClass {
         m_radius = r;
     }
 
-    /**
-     * Draws the point on the given graphics context.
-     *
-     * @param g2 the graphics context
-     */
     public void draw(Graphics2D g2) {
         if (!isdraw()) {
             return;
         }
-        int x = (int) getx();
-        int y = (int) gety();
+        double x = getx();
+        double y = gety();
         int radius = getRadius();
 
         if (radius <= 1) return;
 
         if (radius < 3) {
             setDraw(g2);
-            g2.fillOval(x - radius, y - radius, 2 * radius, 2 * radius);
+            g2.fill(new Ellipse2D.Double(x - radius, y - radius, 2 * radius, 2 * radius));
             return;
         }
         setDraw(g2);
         g2.setColor(new Color(0, 0, 0));
-        g2.fillOval(x - radius, y - radius, 2 * radius, 2 * radius);
+        g2.fill(new Ellipse2D.Double(x - radius, y - radius, 2 * radius, 2 * radius));
 
         setDraw(g2);
-        g2.fillOval(x - radius + 1, y - radius + 1, 2 * radius - 2, 2 * radius - 2);
+        g2.fill(new Ellipse2D.Double(x - radius + 1, y - radius + 1, 2 * radius - 2, 2 * radius - 2));
     }
 
-    /**
-     * Draws the point with a specific style on the given graphics context.
-     *
-     * @param g2 the graphics context
-     */
     public void drawA0(Graphics2D g2) {
         if (!isdraw()) {
             return;
         }
         int radius = getRadius();
-        int x = (int) getx();
-        int y = (int) gety();
+        double x = getx();
+        double y = gety();
         setDraw(g2);
         g2.setColor(Color.black);
-        g2.fillOval(x - radius, y - radius, 2 * radius, 2 * radius);
+        g2.fill(new Ellipse2D.Double(x - radius, y - radius, 2 * radius, 2 * radius));
         g2.setColor(super.getColor());
-        g2.fillOval(x - radius + 1, y - radius + 1, 2 * radius - 2, 2 * radius - 2);
+        g2.fill(new Ellipse2D.Double(x - radius + 1, y - radius + 1, 2 * radius - 2, 2 * radius - 2));
     }
 
 /**
@@ -309,18 +300,18 @@ public class CPoint extends CClass {
      * @param g2 the graphics context
      */
     public void draw_ct(Graphics2D g2) {
-        int x = (int) getx();
-        int y = (int) gety();
+        double x = getx();
+        double y = gety();
         setDraw(g2);
         int radius = CMisc.getPointRadius() + 2;
 
         g2.setColor(Color.white);
-        g2.fillOval(x - radius + 1, y - radius + 1, 2 * radius - 2, 2 * radius - 2);
+        g2.fill(new Ellipse2D.Double(x - radius + 1, y - radius + 1, 2 * radius - 2, 2 * radius - 2));
 
         g2.setColor(Color.black);
-        g2.drawOval(x - radius, y - radius, 2 * radius, 2 * radius);
+        g2.draw(new Ellipse2D.Double(x - radius, y - radius, 2 * radius, 2 * radius));
         radius -= 3;
-        g2.drawOval(x - radius, y - radius, 2 * radius, 2 * radius);
+        g2.draw(new Ellipse2D.Double(x - radius, y - radius, 2 * radius, 2 * radius));
     }
 
     /**
