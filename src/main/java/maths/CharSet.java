@@ -4,7 +4,7 @@ package maths;
  * Represents a character set for polynomial operations.
  */
 public class CharSet {
-    final private static boolean DEBUG = false;
+    final private static boolean DEBUG = true;
     private final PolyBasic basic = PolyBasic.getInstance();
     private static final CharSet charset = new CharSet();
     private static int REDUCE_LEN = 2;

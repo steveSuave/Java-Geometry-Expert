@@ -1596,7 +1596,7 @@ public class CLine extends CClass {
         }
         double k0 = (p2.gety() - p1.gety()) / (p2.getx() - p1.getx());
         double k1 = (p4.gety() - p3.gety()) / (p4.getx() - p3.getx());
-        double x = (p3.gety() - p3.gety() + k0 * p1.getx() - k1 * p3.getx()) / (k0 - k1);
+        double x = (p3.gety() - p1.gety() + k0 * p1.getx() - k1 * p3.getx()) / (k0 - k1);
         double y = k0 * (x - p1.getx()) + p1.gety();
         result[0] = x;
         result[1] = y;

@@ -101,7 +101,7 @@ final public class Cm {
     final public static String s2226 = "Eliminate variables";
 
     /** Debug flag. */
-    final public static boolean DEBUG = false;
+    final public static boolean DEBUG = true;
 
     /**
      * Prints the specified string if the debug flag is set.

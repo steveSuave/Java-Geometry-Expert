@@ -15,7 +15,7 @@ import java.net.URL;
  */
 public class CMisc {
     final public static double version = 0.053;
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     public static int id_count = 1;
     public static int id_count_onfile = 1;
