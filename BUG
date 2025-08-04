@@ -1,1 +1,0 @@
-In this geometry application, I create a line with points A and B, I create its midpoint C, I create a circle with center A and radius the midpoint C, I then try to create a segment from B to a random point in the circle circumference but the segment gets created from B to the polar opposite of where I clicked.
