@@ -23,7 +23,7 @@ public class CMisc {
 
     public static double version_load_now = 0;
 
-    final public static boolean POINT_TRANS = true;  // optimize polynomial.
+    final public static boolean POINT_TRANS = false;  // optimize polynomial.
 
     ////////////////////////////////////////////////////////////////////////////////
     final public static boolean APPLET = false;
