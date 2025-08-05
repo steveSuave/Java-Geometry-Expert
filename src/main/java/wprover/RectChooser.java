@@ -86,10 +86,9 @@ public class RectChooser extends JBaseDialog implements MouseListener, MouseMoti
         bpane.add(fieldh);
 
         // Add transparent background checkbox
-        JCheckBox chkTransparent = new JCheckBox(gx.getLanguage("Transparent"), true);
+        JCheckBox chkTransparent = new JCheckBox(gx.getLanguage("Transparent"), false);
         chkTransparent.addActionListener(e -> transparent = chkTransparent.isSelected());
         bpane.add(chkTransparent);
-        transparent = true;
 
         bpane.add(Box.createHorizontalGlue());
         bok = new JButton(gx.getLanguage("OK"));
