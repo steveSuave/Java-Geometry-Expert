@@ -1,6 +1,6 @@
 package UI;
 
-import wprover.CMisc;
+import wprover.ThemeManager;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
@@ -12,17 +12,7 @@ import java.awt.*;
  */
 public class EntityButtonUI extends BasicButtonUI {
 
-    // Light mode colors
-    private static Color BackgroundOver = new Color(224, 232, 246);
-    private static Color BorderOver = new Color(152, 180, 226);
-    private static Color BackgroundSelected = new Color(193, 210, 238);
-    private static Color BorderSelected = new Color(49, 106, 197);
-    
-    // Dark mode colors
-    private static Color DarkBackgroundOver = new Color(80, 80, 80);
-    private static Color DarkBorderOver = new Color(120, 120, 120);
-    private static Color DarkBackgroundSelected = new Color(100, 100, 100);
-    private static Color DarkBorderSelected = new Color(150, 150, 150);
+    // Colors are now dynamically retrieved from ThemeManager
 //    private static DropShadowBorder dsp= new DropShadowBorder();
 
     private int type = 0; // 0. all, 1. left, 2. right, 3. top, 4, bottom.
@@ -88,21 +78,17 @@ public class EntityButtonUI extends BasicButtonUI {
             int h = c.getHeight();
 
             Color oldColor = g.getColor();
-            
-            // Choose colors based on dark mode
-            if (b3) {
-                g.setColor(CMisc.isDarkMode() ? DarkBackgroundSelected : BackgroundSelected);
-            } else {
-                g.setColor(CMisc.isDarkMode() ? DarkBackgroundOver : BackgroundOver);
-            }
+            if (b3)
+                g.setColor(ThemeManager.getButtonSelectedColor());
+            else
+                g.setColor(ThemeManager.getButtonHoverColor());
 
             g.fillRect(0, 0, w - 1, h - 1);
 
-            if (b3) {
-                g.setColor(CMisc.isDarkMode() ? DarkBorderSelected : BorderSelected);
-            } else {
-                g.setColor(CMisc.isDarkMode() ? DarkBorderOver : BorderOver);
-            }
+            if (b3)
+                g.setColor(ThemeManager.getBorderSelectedColor());
+            else
+                g.setColor(ThemeManager.getBorderHoverColor());
 
             if (type == 0)
                 g.drawRect(0, 0, w - 1, h - 1);

@@ -735,9 +735,37 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
      * Toggles between light and dark mode.
      */
     public void toggleDarkMode() {
-        CMisc.setDarkMode(!CMisc.isDarkMode());
-        updateLookAndFeelDefaults();
-        updateUIForTheme();
+        ThemeManager.toggleTheme();
+        ThemeManager.updateCMisc();
+        
+        // Apply theme to the entire application
+        ThemeManager.applyTheme(this);
+        
+        // Apply to main components
+        Container contentPane = this.getContentPane();
+        if (contentPane != null) {
+            ThemeManager.applyTheme(contentPane);
+        }
+        
+        if (d != null) {
+            ThemeManager.applyTheme(d);
+        }
+        
+        if (scroll != null) {
+            ThemeManager.applyTheme(scroll);
+        }
+        
+        if (pprove != null) {
+            ThemeManager.applyTheme(pprove);
+        }
+        
+        // Update all toolbars
+        updateAllToolbars(this);
+        
+        // Force repaint
+        this.repaint();
+        this.revalidate();
+        SwingUtilities.updateComponentTreeUI(this);
     }
     
     /**

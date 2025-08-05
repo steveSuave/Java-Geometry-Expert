@@ -166,7 +166,7 @@ public class CMisc {
     }
 
     public static Color getGridColor() {
-        return isDarkMode ? DarkGridColor : GridColor;
+        return ThemeManager.getGridColor();
     }
 
     public static void setGridColor(Color c) {
@@ -174,7 +174,7 @@ public class CMisc {
     }
 
     public static Color getBackGroundColor() {
-        return isDarkMode ? DarkBackGroundColor : BackGroundColor;
+        return ThemeManager.getDrawingBackgroundColor();
     }
 
     public static int getMoveStep() {
@@ -257,6 +257,8 @@ public class CMisc {
     
     public static void setDarkMode(boolean darkMode) {
         isDarkMode = darkMode;
+        // Keep ThemeManager in sync
+        ThemeManager.setCurrentTheme(darkMode ? ThemeManager.DARK_THEME : ThemeManager.LIGHT_THEME);
     }
     
     public static Color getFrameColor() {
