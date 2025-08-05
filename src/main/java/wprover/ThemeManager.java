@@ -38,11 +38,11 @@ public class ThemeManager {
         public static final Color FOREGROUND = new Color(187, 187, 187);
         public static final Color PANEL_BACKGROUND = new Color(60, 63, 65);
         public static final Color BUTTON_BACKGROUND = new Color(75, 75, 75);
-        public static final Color BUTTON_HOVER = new Color(85, 85, 85);
-        public static final Color BUTTON_SELECTED = new Color(95, 95, 95);
+        public static final Color BUTTON_HOVER = new Color(100, 100, 100);
+        public static final Color BUTTON_SELECTED = new Color(130, 130, 130);
         public static final Color BORDER = new Color(85, 85, 85);
-        public static final Color BORDER_HOVER = new Color(100, 100, 100);
-        public static final Color BORDER_SELECTED = new Color(120, 120, 120);
+        public static final Color BORDER_HOVER = new Color(120, 120, 120);
+        public static final Color BORDER_SELECTED = new Color(160, 160, 160);
         public static final Color TEXT_FIELD_BACKGROUND = new Color(69, 73, 74);
         public static final Color MENU_BACKGROUND = new Color(45, 45, 45);
         public static final Color TOOLBAR_BACKGROUND = new Color(60, 63, 65);

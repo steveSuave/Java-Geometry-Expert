@@ -762,10 +762,36 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
         // Update all toolbars
         updateAllToolbars(this);
         
-        // Force repaint
+        // Update component tree UI first
+        SwingUtilities.updateComponentTreeUI(this);
+        
+        // Then force refresh of all action buttons to ensure proper theme
+        refreshAllActionButtons(this);
+        
+        // Force final repaint
         this.repaint();
         this.revalidate();
-        SwingUtilities.updateComponentTreeUI(this);
+    }
+    
+    /**
+     * Refreshes all ActionButton UIs recursively to ensure proper theme application.
+     */
+    private void refreshAllActionButtons(Container container) {
+        for (Component component : container.getComponents()) {
+            if (component instanceof ActionButton) {
+                ActionButton actionButton = (ActionButton) component;
+                // Store current selection state
+                boolean wasSelected = actionButton.isSelected();
+                // Force UI refresh by setting a new EntityButtonUI instance
+                actionButton.setUI(new EntityButtonUI());
+                // Restore selection state to ensure proper painting
+                actionButton.setSelected(wasSelected);
+                actionButton.revalidate();
+                actionButton.repaint();
+            } else if (component instanceof Container) {
+                refreshAllActionButtons((Container) component);
+            }
+        }
     }
     
     /**
@@ -4773,14 +4799,13 @@ class DActionButton extends ActionButton {
  */
 class ActionButton extends JToggleButton {
 
-    private static EntityButtonUI ui = new EntityButtonUI();
     Dimension dm;
 
     public ActionButton(Icon co) {
         super(co);
         setRolloverEnabled(true);
-        this.setOpaque(false);
-        this.setUI(ui);
+        this.setOpaque(true);
+        this.setUI(new EntityButtonUI());
         dm = new Dimension(32, 28);
     }
 
