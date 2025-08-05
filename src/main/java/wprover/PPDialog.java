@@ -26,6 +26,7 @@ PPDialog extends JBaseDialog implements ActionListener, MouseMotionListener, Mou
     private JTabbedPane tt;
     private DefaultListModel model1, model2, model22;
     private static Color bcolor = new Color(249, 249, 255);
+    private static Color darkBcolor = new Color(60, 60, 65);
 
 
     /**
@@ -50,8 +51,8 @@ PPDialog extends JBaseDialog implements ActionListener, MouseMotionListener, Mou
         list1 = new JList(model1);
         list2 = new JList(model2);
         list22 = new JList(model22);
-        list1.setBackground(bcolor);
-        list2.setBackground(bcolor);
+        list1.setBackground(CMisc.isDarkMode() ? darkBcolor : bcolor);
+        list2.setBackground(CMisc.isDarkMode() ? darkBcolor : bcolor);
         list22.setBackground(bcolor);
 
         list22.setSelectionModel(list2.getSelectionModel());

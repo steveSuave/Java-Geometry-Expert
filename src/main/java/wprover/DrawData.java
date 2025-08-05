@@ -35,6 +35,7 @@ public class DrawData {
     private static int cnum;
 
     public Vector colorlist = new Vector();
+    public Vector darkColorlist = new Vector();
     public Vector dashlist = new Vector();
     public Vector widthlist = new Vector();
 
@@ -75,6 +76,37 @@ public class DrawData {
 
         for (int i = 0; i < color.length; i++) {
             colorlist.add(color[i]);
+        }
+        
+        // Dark mode color variants - brighter colors for dark backgrounds
+        Color[] darkColor = {
+            new Color(120, 150, 255), // 0 - brighter blue
+            new Color(100, 255, 255), // 1 - brighter cyan
+            new Color(200, 100, 100), // 2 - brighter dark red
+            new Color(255, 120, 120), // 3 - brighter red
+            new Color(100, 200, 100), // 4 - brighter dark green
+            new Color(120, 255, 120), // 5 - brighter green
+            new Color(100, 180, 220), // 6 - brighter blue-cyan
+            new Color(160, 160, 255), // 7 - brighter light blue
+            new Color(255, 120, 255), // 8 - brighter magenta
+            new Color(255, 160, 100), // 9 - brighter orange
+            new Color(200, 200, 100), // 10 - brighter olive
+            new Color(255, 255, 120), // 11 - brighter yellow
+            new Color(255, 180, 100), // 12 - brighter orange
+            new Color(240, 240, 240), // 13 - light gray instead of white
+            new Color(180, 180, 180), // 14 - lighter gray
+            new Color(200, 200, 200), // 15 - lighter gray
+            new Color(220, 220, 220), // 16 - light gray instead of black
+            new Color(150, 255, 150), // 17 - brighter light green
+            new Color(255, 150, 150), // 18 - brighter light red
+            new Color(150, 150, 255), // 19 - brighter light blue
+            new Color(150, 255, 255), // 20 - brighter light cyan
+            new Color(255, 150, 255), // 21 - brighter light magenta
+            new Color(255, 255, 150)  // 22 - brighter light yellow
+        };
+        
+        for (int i = 0; i < darkColor.length; i++) {
+            darkColorlist.add(darkColor[i]);
         }
 
 
@@ -174,6 +206,9 @@ public class DrawData {
     public static Color getColor(int index) {
         int n = dd.colorlist.size();
         if (index < 0 ) return null;
+        if (CMisc.isDarkMode() && index < dd.darkColorlist.size()) {
+            return (Color) (dd.darkColorlist.get(index % n));
+        }
         return (Color) (dd.colorlist.get(index % n));
     }
 

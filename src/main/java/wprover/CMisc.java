@@ -102,6 +102,8 @@ public class CMisc {
 
     final public static Color ButtonColor = new Color(192, 192, 192);
     final public static Color frameColor = new Color(214, 214, 214);
+    final public static Color darkButtonColor = new Color(65, 65, 65);
+    final public static Color darkFrameColor = new Color(50, 50, 50);
     public static int ColorMode = 0; // 1. Gray, 2.Black and white.
     public static boolean AntiAlias = true;
 
@@ -141,6 +143,11 @@ public class CMisc {
     private static AlphaComposite fillac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.70f);
     private static Color BackGroundColor = Color.white;    //OK
     private static Color GridColor = new Color(220, 220, 220);
+    
+    // Dark mode configuration
+    private static boolean isDarkMode = false;
+    private static Color DarkBackGroundColor = new Color(45, 45, 45);
+    private static Color DarkGridColor = new Color(80, 80, 80);
     public static boolean nameTextShown = true;
     public static boolean footMarkShown = true;
     private static double Alpha = 1.0;
@@ -159,7 +166,7 @@ public class CMisc {
     }
 
     public static Color getGridColor() {
-        return GridColor;
+        return isDarkMode ? DarkGridColor : GridColor;
     }
 
     public static void setGridColor(Color c) {
@@ -167,7 +174,7 @@ public class CMisc {
     }
 
     public static Color getBackGroundColor() {
-        return BackGroundColor;
+        return isDarkMode ? DarkBackGroundColor : BackGroundColor;
     }
 
     public static int getMoveStep() {
@@ -242,6 +249,22 @@ public class CMisc {
 
     public static void setBackGroundColor(Color c) {
         BackGroundColor = c;
+    }
+    
+    public static boolean isDarkMode() {
+        return isDarkMode;
+    }
+    
+    public static void setDarkMode(boolean darkMode) {
+        isDarkMode = darkMode;
+    }
+    
+    public static Color getFrameColor() {
+        return isDarkMode ? darkFrameColor : frameColor;
+    }
+    
+    public static Color getButtonColor() {
+        return isDarkMode ? darkButtonColor : ButtonColor;
     }
 
     final public static boolean isValidInt(String s) {

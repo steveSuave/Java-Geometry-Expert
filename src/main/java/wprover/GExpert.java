@@ -730,6 +730,293 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
             styleDialog.setVisible(false);
         }
     }
+    
+    /**
+     * Toggles between light and dark mode.
+     */
+    public void toggleDarkMode() {
+        CMisc.setDarkMode(!CMisc.isDarkMode());
+        updateLookAndFeelDefaults();
+        updateUIForTheme();
+    }
+    
+    /**
+     * Updates Look and Feel UI defaults for dark mode.
+     */
+    private void updateLookAndFeelDefaults() {
+        Color bgColor = CMisc.getBackGroundColor();
+        Color frameColor = CMisc.getFrameColor();
+        Color textColor = CMisc.isDarkMode() ? Color.WHITE : Color.BLACK;
+        
+        Color menuBarColor = CMisc.isDarkMode() ? new Color(45, 45, 45) : Color.WHITE;
+        Color menuItemColor = CMisc.isDarkMode() ? new Color(55, 55, 55) : frameColor;
+        
+        UIManager.put("Panel.background", bgColor);
+        UIManager.put("MenuBar.background", menuBarColor);
+        UIManager.put("Menu.background", menuBarColor);
+        UIManager.put("MenuItem.background", menuItemColor);
+        UIManager.put("PopupMenu.background", menuItemColor);
+        UIManager.put("ToolBar.background", frameColor);
+        Color buttonSelectedColor = CMisc.isDarkMode() ? new Color(90, 90, 90) : new Color(180, 180, 180);
+        
+        UIManager.put("Button.background", CMisc.getButtonColor());
+        UIManager.put("ToggleButton.background", CMisc.getButtonColor());
+        UIManager.put("Button.select", buttonSelectedColor);
+        UIManager.put("ToggleButton.select", buttonSelectedColor);
+        UIManager.put("Button.pressed", buttonSelectedColor);
+        UIManager.put("ToggleButton.pressed", buttonSelectedColor);
+        UIManager.put("TabbedPane.background", bgColor);
+        UIManager.put("ScrollPane.background", bgColor);
+        UIManager.put("Tree.background", bgColor);
+        UIManager.put("List.background", bgColor);
+        UIManager.put("TextArea.background", bgColor);
+        UIManager.put("TextField.background", bgColor);
+        
+        UIManager.put("Panel.foreground", textColor);
+        UIManager.put("MenuBar.foreground", textColor);
+        UIManager.put("Menu.foreground", textColor);
+        UIManager.put("MenuItem.foreground", textColor);
+        UIManager.put("Button.foreground", textColor);
+        UIManager.put("ToggleButton.foreground", textColor);
+        UIManager.put("TabbedPane.foreground", textColor);
+        UIManager.put("Tree.foreground", textColor);
+        UIManager.put("List.foreground", textColor);
+        UIManager.put("TextArea.foreground", textColor);
+        UIManager.put("TextField.foreground", textColor);
+        UIManager.put("Label.foreground", textColor);
+    }
+    
+    /**
+     * Updates UI components to reflect the current theme.
+     */
+    private void updateUIForTheme() {
+        // Update main drawing panel background
+        if (d != null) {
+            d.setBackground(CMisc.getBackGroundColor());
+            d.repaint();
+        }
+        
+        // Update prove panel
+        if (pprove != null) {
+            updateProvePanel();
+        }
+        
+        // Update toolbar
+        if (afpane != null) {
+            updateToolbar();
+        }
+        
+        // Update menu bar and title bar
+        updateMenuBarTheme();
+        updateTitleBarTheme();
+        
+        // Update all toolbars in the frame
+        updateAllToolbars(this);
+        
+        // Update all UI components recursively
+        updateComponentTheme(this);
+        
+        // Force UI refresh for all components
+        SwingUtilities.updateComponentTreeUI(this);
+        
+        // Repaint the entire frame
+        this.repaint();
+    }
+    
+    /**
+     * Updates all toolbars in the container.
+     */
+    private void updateAllToolbars(Container container) {
+        for (Component component : container.getComponents()) {
+            if (component instanceof JToolBar) {
+                JToolBar toolbar = (JToolBar) component;
+                toolbar.setBackground(CMisc.getFrameColor());
+                if (CMisc.isDarkMode()) {
+                    toolbar.setForeground(Color.WHITE);
+                } else {
+                    toolbar.setForeground(Color.BLACK);
+                }
+                
+                // Update toolbar buttons
+                for (Component c : toolbar.getComponents()) {
+                    if (c instanceof JButton || c instanceof JToggleButton) {
+                        c.setBackground(CMisc.getButtonColor());
+                        if (CMisc.isDarkMode()) {
+                            c.setForeground(Color.WHITE);
+                        } else {
+                            c.setForeground(Color.BLACK);
+                        }
+                    }
+                }
+                toolbar.repaint();
+            }
+            if (component instanceof Container) {
+                updateAllToolbars((Container) component);
+            }
+        }
+    }
+    
+    /**
+     * Updates the prove panel theme.
+     */
+    private void updateProvePanel() {
+        pprove.setBackground(CMisc.getBackGroundColor());
+        if (CMisc.isDarkMode()) {
+            pprove.setForeground(Color.WHITE);
+        } else {
+            pprove.setForeground(Color.BLACK);
+        }
+        updateComponentTheme(pprove);
+        
+        // Update prove panel bar
+        if (provePanelbar != null) {
+            provePanelbar.setBackground(CMisc.getFrameColor());
+            if (CMisc.isDarkMode()) {
+                provePanelbar.setForeground(Color.WHITE);
+            } else {
+                provePanelbar.setForeground(Color.BLACK);
+            }
+            updateComponentTheme(provePanelbar);
+            provePanelbar.repaint();
+        }
+    }
+    
+    /**
+     * Updates the toolbar theme.
+     */
+    private void updateToolbar() {
+        afpane.setBackground(CMisc.getBackGroundColor());
+        if (CMisc.isDarkMode()) {
+            afpane.setForeground(Color.WHITE);
+        } else {
+            afpane.setForeground(Color.BLACK);
+        }
+        updateComponentTheme(afpane);
+    }
+    
+    /**
+     * Updates the menu bar theme.
+     */
+    private void updateMenuBarTheme() {
+        JMenuBar menuBar = this.getJMenuBar();
+        if (menuBar != null) {
+            Color barBgColor, barFgColor;
+            if (CMisc.isDarkMode()) {
+                barBgColor = new Color(45, 45, 45);
+                barFgColor = Color.WHITE;
+            } else {
+                barBgColor = Color.WHITE;
+                barFgColor = Color.BLACK;
+            }
+            
+            menuBar.setBackground(barBgColor);
+            menuBar.setForeground(barFgColor);
+            menuBar.setOpaque(true);
+            
+            // Force UIManager to use our colors
+            UIManager.put("MenuBar.background", barBgColor);
+            UIManager.put("MenuBar.foreground", barFgColor);
+            
+            // Update all menus and menu items
+            for (int i = 0; i < menuBar.getMenuCount(); i++) {
+                JMenu menu = menuBar.getMenu(i);
+                if (menu != null) {
+                    updateMenuTheme(menu);
+                }
+            }
+            
+            // Force repaint of the entire menu system
+            menuBar.revalidate();
+            menuBar.repaint();
+            SwingUtilities.updateComponentTreeUI(menuBar);
+        }
+    }
+    
+    /**
+     * Updates individual menu theme recursively.
+     */
+    private void updateMenuTheme(JMenu menu) {
+        Color menuBgColor, menuFgColor, itemBgColor;
+        if (CMisc.isDarkMode()) {
+            menuBgColor = new Color(45, 45, 45);
+            menuFgColor = Color.WHITE;
+            itemBgColor = new Color(55, 55, 55);
+        } else {
+            menuBgColor = Color.WHITE;
+            menuFgColor = Color.BLACK;
+            itemBgColor = Color.WHITE;
+        }
+        
+        menu.setBackground(menuBgColor);
+        menu.setForeground(menuFgColor);
+        menu.setOpaque(true);
+        
+        for (int i = 0; i < menu.getItemCount(); i++) {
+            JMenuItem item = menu.getItem(i);
+            if (item != null) {
+                item.setBackground(itemBgColor);
+                item.setForeground(menuFgColor);
+                item.setOpaque(true);
+                
+                if (item instanceof JMenu) {
+                    updateMenuTheme((JMenu) item);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Updates the macOS title bar theme.
+     */
+    private void updateTitleBarTheme() {
+        // Set macOS appearance
+        if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+            try {
+                // Set the window appearance property
+                this.getRootPane().putClientProperty("apple.awt.application.appearance", 
+                    CMisc.isDarkMode() ? "NSAppearanceNameDarkAqua" : "NSAppearanceNameAqua");
+                
+                // Force window update
+                this.setVisible(false);
+                this.setVisible(true);
+                
+            } catch (Exception e) {
+                // Fallback - try system properties
+                try {
+                    if (CMisc.isDarkMode()) {
+                        System.setProperty("apple.awt.application.appearance", "NSAppearanceNameDarkAqua");
+                    } else {
+                        System.setProperty("apple.awt.application.appearance", "NSAppearanceNameAqua");
+                    }
+                } catch (Exception ex) {
+                    // Ignore if not supported
+                }
+            }
+        }
+    }
+    
+    /**
+     * Recursively updates theme for all components.
+     */
+    private void updateComponentTheme(Container container) {
+        for (Component component : container.getComponents()) {
+            if (component instanceof JPanel || component instanceof JScrollPane || 
+                component instanceof JTabbedPane || component instanceof JTree ||
+                component instanceof JList || component instanceof JTextArea ||
+                component instanceof JTextField || component instanceof JButton) {
+                
+                component.setBackground(CMisc.getBackGroundColor());
+                if (CMisc.isDarkMode()) {
+                    component.setForeground(Color.WHITE);
+                } else {
+                    component.setForeground(Color.BLACK);
+                }
+            }
+            if (component instanceof Container) {
+                updateComponentTheme((Container) component);
+            }
+        }
+    }
 
     /**
      * Creates and initializes the tip label.
@@ -1141,15 +1428,15 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
     public void addMenueToolBar() {
         JToolBar toolBar = new JToolBar("Toolbar");
         toolBar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        toolBar.setBackground(CMisc.frameColor);
-        toolBar.setOpaque(false);
+        toolBar.setBackground(CMisc.getFrameColor());
+        toolBar.setOpaque(true);
         toolBar.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
         addButtons(toolBar);
 
         toolBar.setFloatable(false);
         JToolBar toolBarRight = new JToolBar("Toolbar", JToolBar.VERTICAL);
         toolBarRight.setBorder(new GBevelBorder(GBevelBorder.RAISED, 1));//(EtchedBorder.LOWERED));
-        toolBarRight.setBackground(CMisc.frameColor);
+        toolBarRight.setBackground(CMisc.getFrameColor());
         addRightButtons(toolBarRight);
         toolBarRight.setFloatable(false);
 
@@ -1372,6 +1659,9 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
         item = addAMenu(menu, "Show Step Bar", "Show Step Bar for prove", this);
         addImageToItem(item, "step");
         item = addAMenu(menu, "Style Dialog", "Show Draw Style Dialog", this);
+        addImageToItem(item);
+        
+        item = addAMenu(menu, "Toggle Dark Mode", "Switch between light and dark mode", this);
         addImageToItem(item);
 
         menu = new JMenu(getLanguage("Help"));
@@ -1902,6 +2192,8 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
             this.showProveBar(true);
         } else if (command.equals("Style Dialog")) {
             this.showStyleDialog();
+        } else if (command.equals("Toggle Dark Mode")) {
+            toggleDarkMode();
         } else if (command.equals("About JGEX")) {
             if (adialog == null)
                 adialog = new AboutDialog(this);
@@ -3735,6 +4027,10 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
      * the user quits the program (via an infinite loop).
      */
     private static void createAndShowGUI() {
+        // Set macOS system properties for dark mode support
+        if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+            System.setProperty("apple.awt.application.appearance", "system");
+        }
 
         Locale.setDefault(Locale.ENGLISH);
 

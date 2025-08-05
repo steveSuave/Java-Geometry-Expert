@@ -97,7 +97,7 @@ public class FloatableToolBar extends JPopupMenu {
         mpanel = new JPanel();
         mpanel.setBorder(null);
         mpanel.add(button);
-        mpanel.setBackground(new Color(200, 200, 235));
+        mpanel.setBackground(CMisc.getFrameColor());
         this.add(mpanel);
 
         mpanel.addMouseMotionListener(new MouseMotionListener() {
