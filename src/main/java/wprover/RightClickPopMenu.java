@@ -122,10 +122,13 @@ public class RightClickPopMenu extends JPopupMenu implements ActionListener {
             gxInstance.dp.dialog_addText(t, (int) p.getX(), (int) p.getY());
         } else if (command.equals("Color")) {
             JMenuItem it = (JMenuItem) e.getSource();
-            Color c = it.getForeground();
-            int ci = DrawData.getColorIndex(c);
-            cc.setColor(ci);
-            gxInstance.d.repaint();
+            // Get the color index directly from the menu item name instead of trying to reverse-lookup
+            String colorIndexStr = it.getName();
+            if (colorIndexStr != null) {
+                int ci = Integer.parseInt(colorIndexStr);
+                cc.setColor(ci);
+                gxInstance.d.repaint();
+            }
         } else if (command.equals("Move")) {
             gxInstance.setActionMove();
         } else if (command.equals("Cancel Action")) {
@@ -271,6 +274,7 @@ public class RightClickPopMenu extends JPopupMenu implements ActionListener {
             it.setBorder(BorderFactory.createEmptyBorder(2, 1, 2, 1));
             it.setPreferredSize(dm);
             it.setActionCommand("Color");
+            it.setName(String.valueOf(i)); // Store the color index in the name
             it.addActionListener(this);
             int r = c.getRed();
             int g = c.getGreen();
