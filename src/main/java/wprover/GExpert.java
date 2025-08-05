@@ -800,10 +800,10 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
     private void updateLookAndFeelDefaults() {
         Color bgColor = CMisc.getBackGroundColor();
         Color frameColor = CMisc.getFrameColor();
-        Color textColor = CMisc.isDarkMode() ? Color.WHITE : Color.BLACK;
+        Color textColor = ThemeManager.getForegroundColor();
         
-        Color menuBarColor = CMisc.isDarkMode() ? new Color(45, 45, 45) : Color.WHITE;
-        Color menuItemColor = CMisc.isDarkMode() ? new Color(55, 55, 55) : frameColor;
+        Color menuBarColor = ThemeManager.getMenuBackgroundColor();
+        Color menuItemColor = ThemeManager.getPanelBackgroundColor();
         
         UIManager.put("Panel.background", bgColor);
         UIManager.put("MenuBar.background", menuBarColor);
@@ -955,13 +955,8 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
         JMenuBar menuBar = this.getJMenuBar();
         if (menuBar != null) {
             Color barBgColor, barFgColor;
-            if (CMisc.isDarkMode()) {
-                barBgColor = new Color(45, 45, 45);
-                barFgColor = Color.WHITE;
-            } else {
-                barBgColor = Color.WHITE;
-                barFgColor = Color.BLACK;
-            }
+            barBgColor = ThemeManager.getMenuBackgroundColor();
+            barFgColor = ThemeManager.getForegroundColor();
             
             menuBar.setBackground(barBgColor);
             menuBar.setForeground(barFgColor);
@@ -991,15 +986,9 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
      */
     private void updateMenuTheme(JMenu menu) {
         Color menuBgColor, menuFgColor, itemBgColor;
-        if (CMisc.isDarkMode()) {
-            menuBgColor = new Color(45, 45, 45);
-            menuFgColor = Color.WHITE;
-            itemBgColor = new Color(55, 55, 55);
-        } else {
-            menuBgColor = Color.WHITE;
-            menuFgColor = Color.BLACK;
-            itemBgColor = Color.WHITE;
-        }
+        menuBgColor = ThemeManager.getMenuBackgroundColor();
+        menuFgColor = ThemeManager.getForegroundColor();
+        itemBgColor = ThemeManager.getMenuBackgroundColor();
         
         menu.setBackground(menuBgColor);
         menu.setForeground(menuFgColor);

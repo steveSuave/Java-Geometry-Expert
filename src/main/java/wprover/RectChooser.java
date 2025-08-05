@@ -17,7 +17,6 @@ public class RectChooser extends JBaseDialog implements MouseListener, MouseMoti
         MouseWheelListener, ActionListener {
 
     private static Color color = new Color(190, 210, 230);
-    private static Color darkColor = new Color(70, 80, 90);
     private GExpert gxInstance;
     private drawPane dpane;
     private int width, height;

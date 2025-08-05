@@ -658,11 +658,7 @@ public class PanelProve extends JTabbedPane implements ChangeListener {
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         pane.setBackground(CMisc.getBackGroundColor());
-        if (CMisc.isDarkMode()) {
-            pane.setForeground(Color.WHITE);
-        } else {
-            pane.setForeground(Color.BLACK);
-        }
+        pane.setForeground(ThemeManager.getForegroundColor());
 
         mpPanel.add(pane);
 
