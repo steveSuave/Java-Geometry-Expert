@@ -4305,9 +4305,11 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
         bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0), "SelectAngleTool", "angle", "Angle");
         bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_M, 0), "SelectMoveTool", "move", "Move");
         bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_I, 0), "SelectIntersectTool", "intersect", "Intersect");
-        bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), "UndoTool", "undo", "Undo");
-//        bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "RedoTool", "redo", "Redo");
         bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_T, 0), "SelectTranslateTool", "translate", "Translate");
+        bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_H, 0), "HideObjectTool", "hide object", "HideObject");
+        bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_S, 0), "ShowObjectTool", "show object", "ShowObject");
+        bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), "UndoTool", "undo", "Undo");
+        bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "RedoTool", "redo", "Redo");
     }
 
     // Helper method to register a key binding.
