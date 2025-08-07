@@ -58,7 +58,7 @@ public class TextFrame extends JBaseDialog implements ItemListener,
         GraphicsEnvironment gEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String envfonts[] = gEnv.getAvailableFontFamilyNames();
 
-        Font cfont = new Font("Dialog", Font.PLAIN, 16);
+        Font cfont = new Font("Menlo", Font.PLAIN, 16);
 
         fontfamily = new Vector();
         for (int i = 1; i < envfonts.length; i++)

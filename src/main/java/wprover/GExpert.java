@@ -3538,7 +3538,7 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
         button = makeAButton("quadrangle", "Quadrangle", null, "quadrangle");
         p.add(button);
         group.add(button);
-        button = makeAButton("parallelogram", "Parallelogram", null, "pentagon");
+        button = makeAButton("parallelogram", "Parallelogram", null, "parallelogram");
         p.add(button);
         group.add(button);
         button = makeAButton("trapezoid", "Trapezoid", null, "trapezoid");
@@ -4645,6 +4645,7 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
         bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_M, 0), "SelectMoveTool", "move", "Move");
         bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_I, 0), "SelectIntersectTool", "intersect", "Intersect");
         bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_T, 0), "SelectTranslateTool", "translate", "Translate");
+        bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_F, 0), "FootTool", "foot", "Foot");
         bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_H, 0), "HideObjectTool", "hide object", "HideObject");
         bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_S, 0), "ShowObjectTool", "show object", "ShowObject");
         bindKey(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), "UndoTool", "undo", "Undo");
