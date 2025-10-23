@@ -9720,14 +9720,49 @@ public class DrawProcess extends DrawBase implements Printable, ActionListener {
         } else {
             switch (line.type) {
                 case CLine.PLine: {
-                    Constraint cs = new Constraint(Constraint.PONLINE, p, line, false);
-                    this.addConstraintToList(cs);
-
                     Constraint cs1 = line.getconsByType(Constraint.PARALLEL);
-                    if (cs1 == null)
-                        break;
-                    cs1.PolyGenerate();
-                    p.addcstoPoint(cs);
+                    if (cs1 == null) break;
+
+                    CLine base_line = (CLine) cs1.getelement(1);
+                    CPoint pass_point = null;
+                    for(int i=0; i<line.points.size(); i++) {
+                        CPoint pt = (CPoint)line.points.get(i);
+                        if (pt != p) {
+                            pass_point = pt;
+                            break;
+                        }
+                    }
+
+                    while (base_line.type == CLine.PLine && base_line.points.size() < 2) {
+                        Constraint c = base_line.getconsByType(Constraint.PARALLEL);
+                        if (c != null) {
+                            base_line = (CLine) c.getelement(1);
+                        } else {
+                            base_line = null;
+                            break;
+                        }
+                    }
+
+                    if (base_line != null) {
+                        CPoint[] pl = base_line.getTowSideOfLine();
+                        if (pl != null && pass_point != null) {
+                            Constraint cs = new Constraint(Constraint.PARALLEL, p, pass_point, pl[0], pl[1]);
+                            this.addConstraintToList(cs);
+                            p.addcstoPoint(cs);
+                        } else {
+                            Constraint cs = new Constraint(Constraint.PONLINE, p, line, false);
+                            this.addConstraintToList(cs);
+                            cs1.PolyGenerate();
+                            p.addcstoPoint(cs);
+                        }
+                    } else {
+                        Constraint cs = new Constraint(Constraint.PONLINE, p, line, false);
+                        this.addConstraintToList(cs);
+                        cs1.PolyGenerate();
+                        p.addcstoPoint(cs);
+                    }
+
+
                     if (un)
                         this.UndoAdded(p.getDescription());
                 }

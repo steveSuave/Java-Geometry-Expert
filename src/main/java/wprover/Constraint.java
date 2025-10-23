@@ -1997,21 +1997,26 @@ public class Constraint {
      * @return a TMono object representing the parallelism constraint
      */
     TMono PolyParel() {
+        if (elementlist.size() == 4) {
+            CPoint p1 = (CPoint) elementlist.get(0);
+            CPoint p2 = (CPoint) elementlist.get(1);
+            CPoint p3 = (CPoint) elementlist.get(2);
+            CPoint p4 = (CPoint) elementlist.get(3);
+            add_desx1(Gib.C_O_P, p1, p2, p3, p4);
+            return poly.parallel(p1.x1.xindex, p1.y1.xindex, p2.x1.xindex, p2.y1.xindex,
+                    p3.x1.xindex, p3.y1.xindex, p4.x1.xindex, p4.y1.xindex);
+        }
+
         CLine line1 = (CLine) this.getelement(0);
         CLine line2 = (CLine) this.getelement(1);
-
-        if (line1.points.size() < 2)
-            return null;
         CPoint[] pl1 = line1.getTowSideOfLine();
         CPoint[] pl2 = line2.getTowSideOfLine();
-
-        if (pl1 == null || pl2 == null)
-            return null;
-
-        add_desx1(Gib.C_O_P, pl1[0], pl1[1], pl2[0], pl2[1]);
-
-        return poly.parallel(pl1[0].x1.xindex, pl1[0].y1.xindex, pl1[1].x1.xindex, pl1[1].y1.xindex,
-                pl2[0].x1.xindex, pl2[0].y1.xindex, pl2[1].x1.xindex, pl2[1].y1.xindex);
+        if (pl1 != null && pl2 != null) {
+            add_desx1(Gib.C_O_P, pl1[0], pl1[1], pl2[0], pl2[1]);
+            return poly.parallel(pl1[0].x1.xindex, pl1[0].y1.xindex, pl1[1].x1.xindex, pl1[1].y1.xindex,
+                    pl2[0].x1.xindex, pl2[0].y1.xindex, pl2[1].x1.xindex, pl2[1].y1.xindex);
+        }
+        return null;
     }
 
     /**
