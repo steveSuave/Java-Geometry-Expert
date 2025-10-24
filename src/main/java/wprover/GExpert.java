@@ -3078,9 +3078,9 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
                 JFileFilter f = new JFileFilter(s[i]);
                 chooser.addChoosableFileFilter(f);
 
-                if (s[i].equalsIgnoreCase("JPG"))
+                if (s[i].equals("png"))
                     selected = f;
-                if (selected == null && s[i].equalsIgnoreCase("JPEG"))
+                if (selected == null && s[i].equalsIgnoreCase("JPG"))
                     selected = f;
             }
             chooser.setFileFilter(selected);
