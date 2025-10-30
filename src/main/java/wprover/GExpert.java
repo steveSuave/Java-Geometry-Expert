@@ -590,7 +590,7 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
     public JFileChooser getFileChooser(boolean importGgb) {
         if (filechooser == null) {
             filechooser = new JFileChooser();
-            String dr = getUserHome();
+            String dr = getUserGeo();
             filechooser.setCurrentDirectory(new File(dr));
         }
         if (importGgb) {
@@ -619,6 +619,14 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
      */
     public static String getUserHome() {
         return System.getProperty("user.home");
+    }
+
+    public static String getUserGeo() {
+        return Paths.get(System.getProperty("user.home"), "Documents", "geometry", "gex").toString();
+    }
+
+    public static String getUserPic() {
+        return Paths.get(System.getProperty("user.home"), "Pictures", "mathematica").toString();
     }
 
     /**
@@ -3085,7 +3093,7 @@ public class GExpert extends JFrame implements ActionListener, KeyListener, Drop
             }
             chooser.setFileFilter(selected);
         }
-        String dr = getUserHome();
+        String dr = getUserPic();
         chooser.setCurrentDirectory(new File(dr));
 
         int result = chooser.showSaveDialog(this);

@@ -122,7 +122,7 @@ public class CMisc {
     final public static int PIXEPS = 6;
     final public static int PIXEPS_PT = 8;
     final public static double ZERO = 0.001;
-    final public static double DOUBLE_ZERO = 0.00000001;
+    final public static double DOUBLE_ZERO = 1E-15;
     final public static double HV_ZERO = 0.01;
     final public static double ANIMATE_GAP = 15.0;
     final public static double MAX_K = 999;

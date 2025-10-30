@@ -1722,7 +1722,7 @@ public class DrawBase {
     protected boolean check_lc_inter(CLine ln, Circle c2) {
         double r1 = ln.distance(c2.getCenterOX(), c2.getCenterOY());
         double r2 = c2.getRadius();
-        return (r2 - r1) > 0;
+        return Math.abs(r2 - r1) > CMisc.DOUBLE_ZERO;
     }
 
     /**
